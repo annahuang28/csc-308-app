@@ -7,13 +7,17 @@ function MyApp() {
     
     function fetchUsers() {
         const promise = fetch("http://localhost:8000/users");
-        return promise;
+        return promise;   
     }
     
     useEffect(() => {
         fetchUsers()
             .then((res) => res.json())
-            .then((json) => setCharacters(json["users_list"]))
+            .then((json) =>
+                setCharacters(json["users_list"].map(user => ({
+                ...user,
+                id: user._id.toString(),
+            }))))
             .catch ((error) => { console.log(error); });
     }, [] );
 
@@ -38,6 +42,7 @@ function MyApp() {
         })
         .then((newUser) => {  // updates the state
             setCharacters([...characters, newUser]);
+            setUserId(newUser.id);
         })
         .catch((error) => {
             console.log(error);
