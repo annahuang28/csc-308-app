@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 import userModel from "./user.js";
 
 mongoose.set("debug", true);
@@ -45,7 +45,7 @@ function findUserByJob(job) {
 }
 
 function findUserByNameAndJob(name, job) {
-  return userModel.find({ name: name }, {job: job })
+  return userModel.find({ name: name, job: job })
 }
 function deleteUserById(id) {
   return userModel.findByIdAndDelete(id).then((deletedUser) => !!deletedUser); // returns true if a user was deleted
